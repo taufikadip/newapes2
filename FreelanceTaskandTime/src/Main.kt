@@ -5,6 +5,7 @@ fun main() {
     val projectManager = ProjectManager()
 
     while (true) {
+        println("")
         println("Menu :")
         println("1. Add Freelancer")
         println("2. Create Project")
@@ -22,7 +23,7 @@ fun main() {
                     println("Enter Freelancer Hourly Rate: ")
                     val hourlyRate = readLine()!!
                     projectManager.addFreelancer(name, hourlyRate.toDouble())
-                    println("Freelancer Added Successfully!")
+
                 }
                 2 -> {
                     println("Enter Project Name: ")
@@ -32,7 +33,7 @@ fun main() {
                     println("Enter Project Deadline (YYYY-MM-DD): ")
                     val deadline = readLine()!!
                     projectManager.createProject(name, client, LocalDate.parse(deadline))
-                    println("Project Created Successfully!")
+
                 }
                 3 -> {
                     println("Enter Project ID: ")
@@ -44,7 +45,7 @@ fun main() {
                     println("Enter Estimated Hours: ")
                     val estimatedHours = readLine()!!
                     projectManager.assignTask(projectId.toInt(), freelancerId.toInt(), description, estimatedHours.toInt())
-                    println("Task Assigned Successfully!")
+
                 }
                 4 -> {
                     println("Enter Task ID: ")
@@ -52,7 +53,7 @@ fun main() {
                     println("Enter Hours Worked: ")
                     val hoursWorked = readLine()!!
                     projectManager.logHoursWorked(taskId.toInt(), hoursWorked.toInt())
-                    println("Hours Worked Logged Successfully!")
+
                 }
                 5 -> {
                     println("Enter Project ID: ")

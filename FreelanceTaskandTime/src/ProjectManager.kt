@@ -12,6 +12,7 @@ class ProjectManager {
             hourlyRate = hourlyRate
         )
         freelancers.add(freelancer)
+        println("Freelancer Added Successfully!")
     }
 
     //Create new project
@@ -25,6 +26,7 @@ class ProjectManager {
             totalBudget = 0.0
         )
         projects.add(project)
+        println("Project Created Successfully!")
     }
 
     //Assign task to user
@@ -32,8 +34,6 @@ class ProjectManager {
         val project = projects.find { it.id == projectId }
         val freelancer = freelancers.find { it.id == freelancerId }
         if (project != null && freelancer != null) {
-            require(description.isNotEmpty()) { "Task description cannot be empty" }
-            require(estimatedHours > 0) { "Estimated hours must be positive" }
 
             val task = Task(
                 id = project.tasks.size + 1,
@@ -43,8 +43,9 @@ class ProjectManager {
             )
             project.tasks.add(task)
             freelancer.assignedTasks.add(task)
+            println("Task Assigned Successfully!")
         } else {
-            println("Project or freelancer not found!")
+            throw Exception ("Project or freelancer not found!")
         }
     }
 
@@ -54,13 +55,17 @@ class ProjectManager {
         if (task != null) {
             task.actualHours += hoursWorked
             if (task.actualHours > task.estimatedHours * 1.5) {
-                println("Warning: Actual hours exceed estimated hours by more than 50%")
+                throw Exception ("Warning: Actual hours exceed estimated hours by more than 50%")
             }
             updateTaskStatus(task)
             val projectId = projects.flatMap { it.tasks }.find { it.id == taskId }?.let { task -> projects.find { it.tasks.contains(task) }?.id }
             if (projectId != null) {
                 calculateProjectBudget(projectId)
             }
+            else{
+                throw Exception("Aselole")
+            }
+            println("Hours Worked Logged Successfully!")
         }
     }
 
