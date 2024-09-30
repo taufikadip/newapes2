@@ -53,19 +53,24 @@ class ProjectManager {
     fun logHoursWorked(taskId: Int, hoursWorked: Int) {
         val task = projects.flatMap { it.tasks }.find { it.id == taskId }
         if (task != null) {
-            task.actualHours += hoursWorked
-            if (task.actualHours > task.estimatedHours * 1.5) {
-                throw Exception ("Warning: Actual hours exceed estimated hours by more than 50%")
+            // Check if task was completed
+            if (task.status != "Completed") {
+                task.actualHours += hoursWorked
+                if (task.actualHours > task.estimatedHours * 1.5) {
+                    throw Exception("Warning: Actual hours exceed estimated hours by more than 50%")
+                }
+                updateTaskStatus(task)
+                val projectId = projects.flatMap { it.tasks }.find { it.id == taskId }
+                    ?.let { task -> projects.find { it.tasks.contains(task) }?.id }
+                if (projectId != null) {
+                    calculateProjectBudget(projectId)
+                }
+                println("Hours Worked Logged Successfully!")
+            } else {
+                throw Exception("Project already finished")
             }
-            updateTaskStatus(task)
-            val projectId = projects.flatMap { it.tasks }.find { it.id == taskId }?.let { task -> projects.find { it.tasks.contains(task) }?.id }
-            if (projectId != null) {
-                calculateProjectBudget(projectId)
-            }
-            else{
-                throw Exception("Aselole")
-            }
-            println("Hours Worked Logged Successfully!")
+        }  else {
+            throw Exception("Task not found!")
         }
     }
 
@@ -99,6 +104,7 @@ class ProjectManager {
             println("Tasks:")
             project.tasks.forEach {
                 println("ID : ${it.id}")
+                println("Freelancer : ${it.freelancer.name}")
                 println("Status : ${it.status}")
                 println("Description : ${it.description}")
                 println("Actual Hours : ${it.actualHours}")
