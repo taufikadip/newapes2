@@ -4,6 +4,7 @@ class ProjectManager {
     val freelancers = mutableListOf<Freelancer>()
     val projects = mutableListOf<Project>()
 
+    //Add new freelancer
     fun addFreelancer(name: String, hourlyRate: Double) {
         val freelancer = Freelancer(
             id = freelancers.size + 1,
@@ -13,6 +14,7 @@ class ProjectManager {
         freelancers.add(freelancer)
     }
 
+    //Create new project
     fun createProject(name: String, client: String, deadline: LocalDate) {
         val project = Project(
             id = projects.size + 1,
@@ -25,6 +27,7 @@ class ProjectManager {
         projects.add(project)
     }
 
+    //Assign task to user
     fun assignTask(projectId: Int, freelancerId: Int, description: String, estimatedHours: Int) {
         val project = projects.find { it.id == projectId }
         val freelancer = freelancers.find { it.id == freelancerId }
@@ -45,6 +48,7 @@ class ProjectManager {
         }
     }
 
+    //Log Hours Worked
     fun logHoursWorked(taskId: Int, hoursWorked: Int) {
         val task = projects.flatMap { it.tasks }.find { it.id == taskId }
         if (task != null) {
@@ -60,6 +64,7 @@ class ProjectManager {
         }
     }
 
+    //Update Task Status
     fun updateTaskStatus(task: Task) {
         if (task.actualHours >= task.estimatedHours) {
             task.status = "Completed"
@@ -68,6 +73,7 @@ class ProjectManager {
         }
     }
 
+    //Calculate project budget by Id
     fun calculateProjectBudget(projectId: Int) {
         val project = projects.find { it.id == projectId }
         project?.let {
@@ -78,6 +84,7 @@ class ProjectManager {
         }
     }
 
+    //View project Detais by Id
     fun viewProjectDetails(projectId: Int) {
         val project = projects.find { it.id == projectId }
         if (project != null) {
