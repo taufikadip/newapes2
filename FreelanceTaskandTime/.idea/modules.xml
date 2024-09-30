@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/FreelanceTaskandTime.iml" filepath="$PROJECT_DIR$/.idea/FreelanceTaskandTime.iml" />
+      <module fileurl="file://$PROJECT_DIR$/FreelanceTaskandTime.iml" filepath="$PROJECT_DIR$/FreelanceTaskandTime.iml" />
     </modules>
   </component>
 </project>

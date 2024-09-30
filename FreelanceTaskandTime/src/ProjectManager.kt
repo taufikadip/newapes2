@@ -1,8 +1,9 @@
 import java.time.LocalDate
 
 class ProjectManager {
-    private val freelancers = mutableListOf<Freelancer>()
-    private val projects = mutableListOf<Project>()
+  
+    val freelancers = mutableListOf<Freelancer>()
+    val projects = mutableListOf<Project>()
 
     fun addFreelancer(name: String, hourlyRate: Double) {
         val freelancer = Freelancer(
@@ -50,6 +51,7 @@ class ProjectManager {
             updateTaskStatus(task)
         }
     }
+
 
     fun updateTaskStatus(task: Task) {
         if (task.actualHours >= task.estimatedHours) {
