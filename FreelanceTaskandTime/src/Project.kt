@@ -6,7 +6,7 @@ data class Project(
     val client: String,
     val deadline: LocalDate,
     val tasks: MutableList<Task> = mutableListOf(),
-    val totalBudget: Double
+    var totalBudget: Double
 ) { init {
     require(name.isNotEmpty()) { "Name can not be empty" }
     require(client.isNotEmpty()) { "Client can not be empty" }
