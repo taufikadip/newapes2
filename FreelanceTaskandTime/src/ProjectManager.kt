@@ -1,5 +1,7 @@
 class ProjectManager {
 
+    val freelancers = mutableListOf<Freelancer>()
+    val projects = mutableListOf<Project>()
 
     // Assign Task to freelance
     fun assignTaskToFreelancer(task: Task, freelancer: Freelancer) {
