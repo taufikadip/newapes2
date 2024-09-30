@@ -2,10 +2,10 @@ data class Freelancer(
     val id: Int,
     val name: String,
     val hourlyRate: Double,
-    val assignedTasks: MutableList<Task> = mutableListOf()
+    var assignedTasks: MutableList<Task> = mutableListOf()
 ) {
     init {
-        require(name.isNotEmpty()) { "Nama tidak boleh kosong" }
-        require(hourlyRate > 0) { "Estimasi waktu harus bernilai positif" }
+        require(name.isNotEmpty()) { "Name cannot be empty" }
+        require(hourlyRate > 0) { "Hourly rate must be positive" }
     }
 }

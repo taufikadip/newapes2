@@ -1,7 +1,6 @@
 import java.time.LocalDate
 
 class ProjectManager {
-  
     val freelancers = mutableListOf<Freelancer>()
     val projects = mutableListOf<Project>()
 
@@ -30,6 +29,9 @@ class ProjectManager {
         val project = projects.find { it.id == projectId }
         val freelancer = freelancers.find { it.id == freelancerId }
         if (project != null && freelancer != null) {
+            require(description.isNotEmpty()) { "Task description cannot be empty" }
+            require(estimatedHours > 0) { "Estimated hours must be positive" }
+
             val task = Task(
                 id = project.tasks.size + 1,
                 description = description,
@@ -38,6 +40,8 @@ class ProjectManager {
             )
             project.tasks.add(task)
             freelancer.assignedTasks.add(task)
+        } else {
+            println("Project or freelancer not found!")
         }
     }
 
@@ -49,9 +53,12 @@ class ProjectManager {
                 println("Warning: Actual hours exceed estimated hours by more than 50%")
             }
             updateTaskStatus(task)
+            val projectId = projects.flatMap { it.tasks }.find { it.id == taskId }?.let { task -> projects.find { it.tasks.contains(task) }?.id }
+            if (projectId != null) {
+                calculateProjectBudget(projectId)
+            }
         }
     }
-
 
     fun updateTaskStatus(task: Task) {
         if (task.actualHours >= task.estimatedHours) {
@@ -63,10 +70,11 @@ class ProjectManager {
 
     fun calculateProjectBudget(projectId: Int) {
         val project = projects.find { it.id == projectId }
-        if (project != null) {
-            project.totalBudget = project.tasks.sumByDouble { it.actualHours * (it.freelancer?.hourlyRate?.toDouble()
-                ?: 0.0 ) }
-            println("Project Total Budget : " + project.totalBudget)
+        project?.let {
+            it.totalBudget = it.tasks.sumByDouble { task ->
+                task.actualHours * (task.freelancer?.hourlyRate ?: 0.0)
+            }
+            println("Project Total Budget : ${it.totalBudget}")
         }
     }
 
@@ -77,7 +85,13 @@ class ProjectManager {
             println("Client: ${project.client}")
             println("Deadline: ${project.deadline}")
             println("Tasks:")
-            project.tasks.forEach { println(it) }
+            project.tasks.forEach {
+                println("ID : ${it.id}")
+                println("Status : ${it.status}")
+                println("Description : ${it.description}")
+                println("Actual Hours : ${it.actualHours}")
+                println("Estimate Hours : ${it.estimatedHours}") }
+            calculateProjectBudget(projectId)
             println("Total Budget: ${project.totalBudget}")
         }
     }
