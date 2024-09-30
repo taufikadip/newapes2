@@ -14,49 +14,49 @@ fun main() {
         println("6. Exit")
         print("Choose Menu : ")
         try{
-            var input = Scanner(System.`in`).nextInt()
+            val input = Scanner(System.`in`).nextInt()
             when(input){
                 1 -> {
                     println("Enter Freelancer Name: ")
-                    var name = readLine()!!
+                    val name = readLine()!!
                     println("Enter Freelancer Hourly Rate: ")
-                    var hourlyRate = readLine()!!
+                    val hourlyRate = readLine()!!
                     projectManager.addFreelancer(name, hourlyRate.toDouble())
                     println("Freelancer Added Successfully!")
                 }
                 2 -> {
                     println("Enter Project Name: ")
-                    var name = readLine()!!
+                    val name = readLine()!!
                     println("Enter Client Name: ")
-                    var client = readLine()!!
+                    val client = readLine()!!
                     println("Enter Project Deadline (YYYY-MM-DD): ")
-                    var deadline = readLine()!!
+                    val deadline = readLine()!!
                     projectManager.createProject(name, client, LocalDate.parse(deadline))
                     println("Project Created Successfully!")
                 }
                 3 -> {
                     println("Enter Project ID: ")
-                    var projectId = readLine()!!
+                    val projectId = readLine()!!
                     println("Enter Freelancer ID: ")
-                    var freelancerId = readLine()!!
+                    val freelancerId = readLine()!!
                     println("Enter Task Description: ")
-                    var description = readLine()!!
+                    val description = readLine()!!
                     println("Enter Estimated Hours: ")
-                    var estimatedHours = readLine()!!
+                    val estimatedHours = readLine()!!
                     projectManager.assignTask(projectId.toInt(), freelancerId.toInt(), description, estimatedHours.toInt())
                     println("Task Assigned Successfully!")
                 }
                 4 -> {
                     println("Enter Task ID: ")
-                    var taskId = readLine()!!
+                    val taskId = readLine()!!
                     println("Enter Hours Worked: ")
-                    var hoursWorked = readLine()!!
+                    val hoursWorked = readLine()!!
                     projectManager.logHoursWorked(taskId.toInt(), hoursWorked.toInt())
                     println("Hours Worked Logged Successfully!")
                 }
                 5 -> {
                     println("Enter Project ID: ")
-                    var projectId = readLine()!!
+                    val projectId = readLine()!!
                     projectManager.viewProjectDetails(projectId.toInt())
                 }
                 6 -> {
