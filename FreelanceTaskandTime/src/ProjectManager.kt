@@ -104,12 +104,11 @@ class ProjectManager {
             println("Tasks:")
             project.tasks.forEach {
                 println("ID : ${it.id}")
-                println("Freelancer : ${it.freelancer.name}")
+                println("Freelancer Name : ${it.freelancer.name}")
                 println("Status : ${it.status}")
                 println("Description : ${it.description}")
                 println("Actual Hours : ${it.actualHours}")
                 println("Estimate Hours : ${it.estimatedHours}") }
-            calculateProjectBudget(projectId)
             println("Total Budget: ${project.totalBudget}")
         }
     }
