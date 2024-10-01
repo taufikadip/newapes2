@@ -11,5 +11,6 @@ data class Project(
     init {
         require(name.isNotEmpty()) { "Name cannot be empty" }
         require(client.isNotEmpty()) { "Client cannot be empty" }
+        require(deadline >= LocalDate.now()) { "Date must be today or future" }
     }
 }
